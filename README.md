@@ -1,6 +1,6 @@
 # Benchmark large json parsing
 
-A few crude benchmarks for Elixir, Golang and Ruby
+A few crude benchmarks for Elixir, Golang, C++, and Ruby
 
     Processor Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
     OS: Ubuntu 16.04
@@ -50,3 +50,15 @@ A few crude benchmarks for Elixir, Golang and Ruby
       real    0m4.738s
       user    0m4.498s
       sys     0m0.240s
+
+
+# Building instructions:
+
+## C++
+
+### RapidJson
+
+Just run the `build.sh` script from within the `cpp/rapidjson` directory and it will output two binaries into the `_builds` directory, one for sax-style parsing, the other for structure/document style parsing.
+
+To run it the C++ programs will accept it via stdin, so don't pass it in as an argument, but instead pipe it into to it like via `time _builds/rapidjson-structure < ../../data/citylots.json` or so.
+
