@@ -2,54 +2,101 @@
 
 A few crude benchmarks for Elixir, Golang, C++, and Ruby
 
-    Processor Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
-    OS: Ubuntu 16.04
+    Processor: 2.5 GHz Quad-Core Intel Core i7
+    Memory: 16 GB 1600 MHz DDR3
+    OS: macOS 10.15.3
 
 ## 10mb.json
 
-### Golang [jq]
+### CPP
 
-    $ time jq '.' data/10mb.json > /dev/null
-    real    0m0.567s
-    user    0m0.551s
-    sys     0m0.016s
+    $ time _builds/rapidjson-sax < ../../data/10mb.json
 
+    real	0m0.031s
+    user	0m0.026s
+    sys	    0m0.003s
+
+    $ time _builds/rapidjson-structure < ../../data/10mb.json
+
+    real	0m0.039s
+    user	0m0.032s
+    sys 	0m0.006s
+
+### Golang
+
+Notes:
+- Decoding to generic `map[string]interface{}` rather than specific (faster) struct.
+- Crude stream implementation requires top-level JSON object (not array)
+
+
+    $ time ./naive < ../data/10mb.json
+
+    real	0m0.386s
+    user	0m0.408s
+    sys	    0m0.060s
+
+    $  time ./streamed < ../data/10mb.json
+
+    real	0m0.182s
+    user	0m0.196s
+    sys	    0m0.020s
 
 ### Elixir
 
-    Time taken [Poison]: 1218.831ms
-    Time taken [Jason]: 508.461ms
+    Time taken [Poison]: 857.349ms
+    Time taken [Jason]: 438.837ms
 
 ### Ruby
 
-    time ruby app.rb
+    $ time ruby app.rb
 
-    real    0m0.220s
-    user    0m0.203s
-    sys     0m0.017s
+    real	0m0.299s
+    user	0m0.254s
+    sys	0m0.039s
 
 ## 100mb.json (https://github.com/zemirco/sf-city-lots-json/blob/master/citylots.json)
 
-### Golang [jq]
+### CPP
 
-    $ time jq '.' data/citylots.json > /dev/null
+    $ time _builds/rapidjson-sax < ../../data/citylots.json
 
-    real    0m14.436s
-    user    0m13.992s
-    sys     0m0.420s
+    real	0m0.463s
+    user	0m0.435s
+    sys	    0m0.026s
+
+    $ time _builds/rapidjson-structure < ../../data/citylots.json
+
+    real	0m0.719s
+    user	0m0.602s
+    sys	    0m0.117s
+
+### Golang
+
+    $ time ./naive < ../data/citylots.json
+
+    real	0m7.613s
+    user	0m9.015s
+    sys	    0m0.693s
+
+    $  time ./streamed < ../data/citylots.json
+
+    real	0m4.448s
+    user	0m5.558s
+    sys	    0m0.420s
 
 ## Elixir
 
-      Time taken [Poison]: 32_640.87ms
-      Time taken [Jason]: 11_602.128ms
+    Time taken [Poison]: 30483.717ms
+    Time taken [Jason]: 12806.43ms
 
 ## Ruby
 
-      $ time ruby app.rb
+    $ time ruby app.rb
 
-      real    0m4.738s
-      user    0m4.498s
-      sys     0m0.240s
+    real	0m6.352s
+    user	0m5.977s
+    sys	    0m0.360s
+
 
 
 # Building instructions:
@@ -62,3 +109,10 @@ Just run the `build.sh` script from within the `cpp/rapidjson` directory and it 
 
 To run it the C++ programs will accept it via stdin, so don't pass it in as an argument, but instead pipe it into to it like via `time _builds/rapidjson-structure < ../../data/citylots.json` or so.
 
+## Go
+
+`go build naive.go ; go build streamed.go`
+
+## Elixir
+
+`mix test`
