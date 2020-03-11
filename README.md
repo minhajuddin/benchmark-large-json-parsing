@@ -28,6 +28,7 @@ Notes:
 - Decoding to generic `map[string]interface{}` rather than specific (faster) struct.
 - Crude stream implementation requires top-level JSON object (not array)
 
+>
 
     $ time ./naive < ../data/10mb.json
 
