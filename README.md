@@ -14,13 +14,13 @@ A few crude benchmarks for Elixir, Golang, C++, and Ruby
 
     real	0m0.031s
     user	0m0.026s
-    sys	    0m0.003s
+    sys	0m0.003s
 
     $ time _builds/rapidjson-structure < ../../data/10mb.json
 
     real	0m0.039s
     user	0m0.032s
-    sys 	0m0.006s
+    sys	0m0.006s
 
 ### Golang
 
@@ -28,18 +28,19 @@ Notes:
 - Decoding to generic `map[string]interface{}` rather than specific (faster) struct.
 - Crude stream implementation requires top-level JSON object (not array)
 
+>
 
     $ time ./naive < ../data/10mb.json
 
     real	0m0.386s
     user	0m0.408s
-    sys	    0m0.060s
+    sys	0m0.060s
 
     $  time ./streamed < ../data/10mb.json
 
     real	0m0.182s
     user	0m0.196s
-    sys	    0m0.020s
+    sys	0m0.020s
 
 ### Elixir
 
@@ -62,13 +63,13 @@ Notes:
 
     real	0m0.463s
     user	0m0.435s
-    sys	    0m0.026s
+    sys	0m0.026s
 
     $ time _builds/rapidjson-structure < ../../data/citylots.json
 
     real	0m0.719s
     user	0m0.602s
-    sys	    0m0.117s
+    sys	0m0.117s
 
 ### Golang
 
@@ -76,13 +77,13 @@ Notes:
 
     real	0m7.613s
     user	0m9.015s
-    sys	    0m0.693s
+    sys	0m0.693s
 
     $  time ./streamed < ../data/citylots.json
 
     real	0m4.448s
     user	0m5.558s
-    sys	    0m0.420s
+    sys	0m0.420s
 
 ## Elixir
 
@@ -95,7 +96,7 @@ Notes:
 
     real	0m6.352s
     user	0m5.977s
-    sys	    0m0.360s
+    sys	0m0.360s
 
 
 
