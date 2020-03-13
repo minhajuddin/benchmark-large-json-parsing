@@ -38,14 +38,14 @@ A few crude benchmarks for Elixir, Golang, C++, and Ruby
 
     $  time ./streamed-struct < ../data/10mb.json
 
-    real	0m0.080s
-    user	0m0.073s
+    real	0m0.081s
+    user	0m0.074s
     sys	0m0.010s
 
     $  time ./streamed-struct-jsoniter < ../data/10mb.json
 
     real	0m0.036s
-    user	0m0.029s
+    user	0m0.030s
     sys	0m0.006s
 
 ### Elixir
@@ -93,15 +93,15 @@ A few crude benchmarks for Elixir, Golang, C++, and Ruby
 
     $  time ./streamed-struct < ../data/citylots.json
 
-    real	0m1.742s
-    user	0m1.655s
-    sys	0m0.199s
+    real	0m1.762s
+    user	0m1.680s
+    sys	0m0.194s
 
     $  time ./streamed-struct-jsoniter < ../data/citylots.json
 
-    real	0m0.752s
-    user	0m0.705s
-    sys	0m0.063s
+    real	0m0.734s
+    user	0m0.686s
+    sys	0m0.065s
 
 ## Elixir
 

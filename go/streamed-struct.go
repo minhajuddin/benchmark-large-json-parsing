@@ -31,8 +31,8 @@ type Properties struct {
 }
 
 type Geometry struct {
-	Type        string        `json:"type"`
-	Coordinates []interface{} `json:"coordinates"`
+	Type        string       `json:"type"`
+	Coordinates [][3]float64 `json:"coordinates"`
 }
 
 func main() {
