@@ -133,7 +133,7 @@ To run it the C++ programs will accept it via stdin, so don't pass it in as an a
 This includes four versions of a Go JSON parser.
 - Three use the standard "encoding/json" library, and one uses the third-party jsoniter "github.com/json-iterator/go" (not the fastest, but easiest to swap in).
 - Two decoding to generic `map[string]interface{}` and two defining the property shaped structs to hold deserialized results.
-- One reading the file into memory and unmarshalling and three streaming the file through the decoder.
+- One reading the file into memory then unmarshalling and three streaming the file through the decoder.
 
 Build all four separately since they use the same package name.
 
