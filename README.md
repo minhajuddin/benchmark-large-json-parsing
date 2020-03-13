@@ -24,12 +24,6 @@ A few crude benchmarks for Elixir, Golang, C++, and Ruby
 
 ### Golang
 
-Notes:
-- Decoding to generic `map[string]interface{}` rather than specific (faster) struct.
-- Crude stream implementation requires top-level JSON object (not array)
-
->
-
     $ time ./naive < ../data/10mb.json
 
     real	0m0.386s
@@ -41,6 +35,18 @@ Notes:
     real	0m0.182s
     user	0m0.196s
     sys	0m0.020s
+
+    $  time ./streamed-struct < ../data/10mb.json
+
+    real	0m0.080s
+    user	0m0.073s
+    sys	0m0.010s
+
+    $  time ./streamed-struct-jsoniter < ../data/10mb.json
+
+    real	0m0.036s
+    user	0m0.029s
+    sys	0m0.006s
 
 ### Elixir
 
@@ -84,6 +90,18 @@ Notes:
     real	0m4.448s
     user	0m5.558s
     sys	0m0.420s
+
+    $  time ./streamed-struct < ../data/citylots.json
+
+    real	0m1.742s
+    user	0m1.655s
+    sys	0m0.199s
+
+    $  time ./streamed-struct-jsoniter < ../data/citylots.json
+
+    real	0m0.752s
+    user	0m0.705s
+    sys	0m0.063s
 
 ## Elixir
 
