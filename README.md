@@ -24,12 +24,6 @@ A few crude benchmarks for Elixir, Golang, C++, and Ruby
 
 ### Golang
 
-Notes:
-- Decoding to generic `map[string]interface{}` rather than specific (faster) struct.
-- Crude stream implementation requires top-level JSON object (not array)
-
->
-
     $ time ./naive < ../data/10mb.json
 
     real	0m0.386s
@@ -41,6 +35,18 @@ Notes:
     real	0m0.182s
     user	0m0.196s
     sys	0m0.020s
+
+    $  time ./streamed-struct < ../data/10mb.json
+
+    real	0m0.081s
+    user	0m0.074s
+    sys	0m0.010s
+
+    $  time ./streamed-struct-jsoniter < ../data/10mb.json
+
+    real	0m0.036s
+    user	0m0.030s
+    sys	0m0.006s
 
 ### Elixir
 
@@ -85,6 +91,18 @@ Notes:
     user	0m5.558s
     sys	0m0.420s
 
+    $  time ./streamed-struct < ../data/citylots.json
+
+    real	0m1.762s
+    user	0m1.680s
+    sys	0m0.194s
+
+    $  time ./streamed-struct-jsoniter < ../data/citylots.json
+
+    real	0m0.734s
+    user	0m0.686s
+    sys	0m0.065s
+
 ## Elixir
 
     Time taken [Poison]: 30483.717ms
@@ -112,7 +130,17 @@ To run it the C++ programs will accept it via stdin, so don't pass it in as an a
 
 ## Go
 
-`go build naive.go ; go build streamed.go`
+This includes four versions of a Go JSON parser.
+- Three use the standard "encoding/json" library, and one uses the third-party jsoniter "github.com/json-iterator/go" (not the fastest, but easiest to swap in).
+- Two decoding to generic `map[string]interface{}` and two defining the property shaped structs to hold deserialized results.
+- One reading the file into memory then unmarshalling and three streaming the file through the decoder.
+
+Build all four separately since they use the same package name.
+
+    go build naive.go
+    go build streamed.go
+    go build streamd-struct.go
+    GOPATH=`pwd` go get -u github.com/json-iterator/go && GOPATH=`pwd` go build streamed-struct-jsoniter.go
 
 ## Elixir
 
